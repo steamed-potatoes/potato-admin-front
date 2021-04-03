@@ -6,6 +6,7 @@ import rootReducer from './store/modules';
 
 const Login = lazy(() => import('./page/login/Login'));
 const GoogleCallback = lazy(() => import('./page/google/GoogleCallback'));
+const Board = lazy(() => import('./page/board/Board'));
 
 const store = createStore(rootReducer);
 
@@ -21,6 +22,7 @@ const Root = () => {
               path="/auth/google/callback"
               component={GoogleCallback}
             />
+            <Route exact path="/organization" component={Board} />
           </Switch>
         </Suspense>
       </BrowserRouter>

@@ -16,7 +16,7 @@ const GoogleCallback = () => {
       });
 
       localStorageService.set('authToken', data.data);
-      history.push('/');
+      history.push('/organization');
     } catch (error) {
       alert('에러가 발생');
       history.push('/Login');
