@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
-import { Menu, Row, Col } from 'antd';
+import { Menu } from 'antd';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 96%;
+  height: 100%;
+  margin: 2%;
+`;
 
 const Navbar = ({ children }) => {
   const history = useHistory();
@@ -14,7 +25,7 @@ const Navbar = ({ children }) => {
     history.push(url);
   };
   return (
-    <div>
+    <Wrapper>
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
         <Menu.Item
           key="members"
@@ -41,18 +52,8 @@ const Navbar = ({ children }) => {
           공지 추가
         </Menu.Item>
       </Menu>
-      <Row gutter={8}>
-        <Col xs={24} md={6}>
-          몰랑
-        </Col>
-        <Col xs={24} md={12}>
-          {children}
-        </Col>
-        <Col xs={24} md={6}>
-          오른쪽
-        </Col>
-      </Row>
-    </div>
+      {children}
+    </Wrapper>
   );
 };
 

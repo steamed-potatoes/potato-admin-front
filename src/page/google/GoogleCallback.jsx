@@ -16,7 +16,7 @@ const GoogleCallback = () => {
       });
 
       localStorageService.set('authToken', data.data);
-      history.push('/organizations');
+      history.push('/members');
     } catch (error) {
       alert(error.response.data.message);
       history.push('/');
