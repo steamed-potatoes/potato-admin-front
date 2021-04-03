@@ -23,7 +23,7 @@ const Root = () => {
               path="/auth/google/callback"
               component={GoogleCallback}
             />
-            <Route exact path="/organization" component={Organization} />
+            <Route exact path="/organizations" component={Organization} />
             <Route exact path="/members" component={MemberList} />
           </Switch>
         </Suspense>
