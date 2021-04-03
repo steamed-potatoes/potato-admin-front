@@ -15,8 +15,12 @@ const Root = () => {
       <BrowserRouter>
         <Suspense fallback="loading...">
           <Switch>
-            <Route path="/" component={Login} />
-            <Route path="/auth/google/callback" component={GoogleCallback} />
+            <Route exact path="/" component={Login} />
+            <Route
+              exact
+              path="/auth/google/callback"
+              component={GoogleCallback}
+            />
           </Switch>
         </Suspense>
       </BrowserRouter>

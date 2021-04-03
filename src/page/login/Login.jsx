@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { GOOGLE_AUTH_URL } from 'constant';
-import GoogleButton from './GoogleButton';
+import GoogleButton from '../../components/google/GoogleButton';
 
 const LoginWrapper = styled.div`
   display: flex;
