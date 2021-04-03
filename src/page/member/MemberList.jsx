@@ -10,9 +10,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  width: 30vw;
-  height: 100vh;
-  margin: 0 35%;
+  width: 96%;
+  height: 100%;
+  margin: 2%;
 `;
 
 const MemberList = () => {
@@ -24,7 +24,7 @@ const MemberList = () => {
       const { data } = await sendApi.getMemberList();
       setMembers(data.data);
     } catch (error) {
-      alert('그룹을 불러오는데 에러가 발생하였습니다.');
+      alert(error.response.data.message);
       history.push('/');
     }
   }, []);
@@ -37,7 +37,7 @@ const MemberList = () => {
           itemLayout="vertical"
           size="large"
           pagination={{
-            pageSize: 5,
+            pageSize: 4,
           }}
           dataSource={members}
           renderItem={(item) => (

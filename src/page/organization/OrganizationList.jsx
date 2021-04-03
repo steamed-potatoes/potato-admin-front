@@ -11,10 +11,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  width: 80vw;
-  height: 100vh;
-  margin: 0 10%;
+  margin: 2%;
+  width: 96%;
+  height: 100%;
 `;
 
 const OrganizationList = () => {
@@ -26,7 +25,7 @@ const OrganizationList = () => {
       const { data } = await sendApi.getOrganizationList();
       setOrganization(data.data);
     } catch (error) {
-      alert('그룹을 불러오는데 에러가 발생하였습니다.');
+      alert(error.response.data.message);
       history.push('/');
     }
   }, []);

@@ -18,8 +18,8 @@ const GoogleCallback = () => {
       localStorageService.set('authToken', data.data);
       history.push('/organizations');
     } catch (error) {
-      alert('에러가 발생');
-      history.push('/Login');
+      alert(error.response.data.message);
+      history.push('/');
     }
   };
 
