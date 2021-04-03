@@ -17,4 +17,29 @@ export default {
       },
     });
   },
+  createBoard: async (title, content, startDateTime, endDateTime) => {
+    return await axios.post(
+      `${AUTH_KEY.apiUrl}/admin/v1/board`,
+      {
+        title,
+        content,
+        startDateTime,
+        endDateTime,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorageService.get('authToken')}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+  },
+  getBoardList: async () => {
+    return await axios.get(`${AUTH_KEY.apiUrl}/admin/v1/organization/list`, {
+      headers: {
+        Authorization: `Bearer ${localStorageService.get('authToken')}`,
+        'Content-Type': 'application/json',
+      },
+    });
+  },
 };
