@@ -7,14 +7,16 @@ import GoogleButton from './GoogleButton';
 const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin-top: 160px;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const Title = styled.p`
   margin: 0px;
-  font-size: 56px;
+  font-size: 32px;
+  margin-bottom: 8px;
 `;
 
 const SubTitle = styled.p`
@@ -24,13 +26,13 @@ const SubTitle = styled.p`
 
 const LoginButton = styled.a`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
   margin: 24px 0px 0px 0px;
   padding: 16px 32px 16px 32px;
-  width: 720px;
+  width: 100%;
+  max-width: 720px;
 
   border: 0px solid #ffffff;
   border-radius: 48px;
@@ -64,7 +66,7 @@ const Login = () => {
       </SubTitle>
       <LoginButton href={GOOGLE_AUTH_URL}>
         <GoogleButton />
-        <LoginButtonText>구글 아이디로 시작하기</LoginButtonText>
+        <LoginButtonText>구글 계정으로 시작하기</LoginButtonText>
         <AiOutlineArrowRight size="40px" />
       </LoginButton>
     </LoginWrapper>
