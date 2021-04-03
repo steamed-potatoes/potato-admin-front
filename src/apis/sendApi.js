@@ -19,7 +19,7 @@ export default {
   },
   createBoard: async (title, content, startDateTime, endDateTime) => {
     return await axios.post(
-      `${AUTH_KEY.apiUrl}/admin/v1/board`,
+      `${AUTH_KEY.adminUrl}/admin/v1/board`,
       {
         title,
         content,

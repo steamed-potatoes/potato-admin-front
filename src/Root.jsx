@@ -8,6 +8,9 @@ const Login = lazy(() => import('./page/login/Login'));
 const GoogleCallback = lazy(() => import('./page/google/GoogleCallback'));
 const MemberList = lazy(() => import('./page/member/MemberList'));
 const Organization = lazy(() => import('./page/organization/OrganizationList'));
+const CreateBoardForm = lazy(() =>
+  import('./page/createBoard/CreateBoardForm')
+);
 
 const store = createStore(rootReducer);
 
@@ -25,6 +28,7 @@ const Root = () => {
             />
             <Route exact path="/organizations" component={Organization} />
             <Route exact path="/members" component={MemberList} />
+            <Route exact path="/createBoard" component={CreateBoardForm} />
           </Switch>
         </Suspense>
       </BrowserRouter>
