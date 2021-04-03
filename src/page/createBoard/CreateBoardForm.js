@@ -37,8 +37,7 @@ const CreateBoardForm = () => {
   };
 
   return (
-    <div>
-      <Navbar />
+    <Navbar>
       <Form onFinish={onSubmitForm}>
         <div>
           <label htmlFor="title">제목</label>
@@ -76,7 +75,7 @@ const CreateBoardForm = () => {
         </div>
       </Form>
       <BoardList board={board} />
-    </div>
+    </Navbar>
   );
 };
 

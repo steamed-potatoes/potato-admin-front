@@ -31,27 +31,28 @@ const MemberList = () => {
 
   return (
     <>
-      <Navbar />
-      <Wrapper>
-        <List
-          itemLayout="vertical"
-          size="large"
-          pagination={{
-            pageSize: 5,
-          }}
-          dataSource={members}
-          renderItem={(item) => (
-            <List.Item key={item.id}>
-              <List.Item.Meta
-                avatar={<Avatar src={item.profileUrl} />}
-                title={item.name}
-                description={item.major}
-              />
-              {item.email}
-            </List.Item>
-          )}
-        />
-      </Wrapper>
+      <Navbar>
+        <Wrapper>
+          <List
+            itemLayout="vertical"
+            size="large"
+            pagination={{
+              pageSize: 5,
+            }}
+            dataSource={members}
+            renderItem={(item) => (
+              <List.Item key={item.id}>
+                <List.Item.Meta
+                  avatar={<Avatar src={item.profileUrl} />}
+                  title={item.name}
+                  description={item.major}
+                />
+                {item.email}
+              </List.Item>
+            )}
+          />
+        </Wrapper>
+      </Navbar>
     </>
   );
 };
