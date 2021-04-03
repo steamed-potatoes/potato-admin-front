@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Button, Form, Input } from 'antd';
-import sendApi from 'apis/sendApi';
 import DatePicker from 'react-datepicker';
+import sendApi from 'apis/sendApi';
+import Navbar from 'components/navbar/Navbar';
 import BoardList from './BoardList';
 
 const CreateBoardForm = () => {
@@ -19,16 +20,13 @@ const CreateBoardForm = () => {
     setContent(e.target.value);
   });
 
-  // eslint-disable-next-line consistent-return
-  const onSubmitForm = () => {
-    console.log(title, content);
+  const onSubmitForm = async () => {
     if (!title || !title.trim()) {
       return alert('제목을 작성해주세요');
     }
-    sendApi
+    return await sendApi
       .createBoard(title, content, startDateTime, endDateTime)
       .then((response) => {
-        console.log(response);
         setBoard(response.data.data);
         setTitle('');
         setContent('');
@@ -40,6 +38,7 @@ const CreateBoardForm = () => {
 
   return (
     <div>
+      <Navbar />
       <Form onFinish={onSubmitForm}>
         <div>
           <label htmlFor="title">제목</label>

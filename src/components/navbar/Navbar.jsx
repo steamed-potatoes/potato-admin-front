@@ -31,6 +31,14 @@ const Navbar = () => {
       >
         그룹 관리
       </Menu.Item>
+      <Menu.Item
+        key="createBoard"
+        onClick={() => {
+          onClickNav('/createBoard');
+        }}
+      >
+        공지 추가
+      </Menu.Item>
     </Menu>
   );
 };
