@@ -1,37 +1,10 @@
 import React from 'react';
-import { List } from 'antd';
-// import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-// import sendApi from 'apis/sendApi';
-// const IconText = ({ text }) => <Space>{text}</Space>;
+import { useSelector } from 'react-redux';
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+const Board = () => {
+  const { adminBoard } = useSelector((state) => state.board);
 
-  width: 80vw;
-  height: 100vh;
-  margin: 0 10%;
-`;
-
-const Board = ({ boardList }) => {
-  // const history = useHistory();
-
-  // useEffect(async () => {
-  //   try {
-  //     const { data } = await sendApi.getOrganizationList();
-  //     setOrganization(data.data);
-  //   } catch (error) {
-  //     history.push('/');
-  //   }
-  // }, []);
-
-  return (
-    <Wrapper>
-      <List>{boardList}</List>
-    </Wrapper>
-  );
+  return <div>{adminBoard}</div>;
 };
 
 export default Board;
