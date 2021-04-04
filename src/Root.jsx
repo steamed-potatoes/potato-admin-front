@@ -11,6 +11,7 @@ const Organization = lazy(() => import('./page/organization/OrganizationList'));
 const CreateBoardForm = lazy(() =>
   import('./page/createBoard/CreateBoardForm')
 );
+const retrieveBoard = lazy(() => import('./page/createBoard/RetrieveBoard'));
 
 const store = createStore(rootReducer);
 
@@ -29,6 +30,7 @@ const Root = () => {
             <Route exact path="/organizations" component={Organization} />
             <Route exact path="/members" component={MemberList} />
             <Route exact path="/createBoard" component={CreateBoardForm} />
+            <Route exact path="/retrieveBoard" component={retrieveBoard} />
           </Switch>
         </Suspense>
       </BrowserRouter>

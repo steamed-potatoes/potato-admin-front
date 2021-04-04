@@ -42,4 +42,9 @@ export default {
       },
     });
   },
+  getAdminBoardList: async (startDate, endDate) => {
+    return await axios.get(
+      `${AUTH_KEY.apiUrl}/api/v1/schedule?startDate=${startDate}&endDate=${endDate}`
+    );
+  },
 };
