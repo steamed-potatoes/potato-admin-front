@@ -15,8 +15,8 @@ const OrganizationList = () => {
       const { data } = await sendApi.getOrganizationList();
       setOrganization(data.data);
     } catch (error) {
-      alert(error.response.data.message);
-      history.push('/');
+      alert(error.data);
+      history.push('/members');
     }
   }, []);
 

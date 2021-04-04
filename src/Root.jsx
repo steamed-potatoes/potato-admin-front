@@ -1,8 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './store/modules';
+import configureStore from './store/configureStore';
 
 const Login = lazy(() => import('./page/login/Login'));
 const GoogleCallback = lazy(() => import('./page/google/GoogleCallback'));
@@ -11,12 +10,13 @@ const Organization = lazy(() => import('./page/organization/OrganizationList'));
 const CreateBoardForm = lazy(() =>
   import('./page/createBoard/CreateBoardForm')
 );
+const Board = lazy(() => import('./page/createBoard/BoardList'));
 
-const store = createStore(rootReducer);
+// const store = createStore(rootReducer);
 
 const Root = () => {
   return (
-    <Provider store={store}>
+    <Provider store={configureStore}>
       <BrowserRouter>
         <Suspense fallback="loading...">
           <Switch>
@@ -29,6 +29,7 @@ const Root = () => {
             <Route exact path="/organizations" component={Organization} />
             <Route exact path="/members" component={MemberList} />
             <Route exact path="/createBoard" component={CreateBoardForm} />
+            <Route exact path="/board" component={Board} />
           </Switch>
         </Suspense>
       </BrowserRouter>

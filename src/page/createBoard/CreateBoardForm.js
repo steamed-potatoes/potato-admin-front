@@ -1,16 +1,25 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Button, Form, Input } from 'antd';
 import DatePicker from 'react-datepicker';
-import sendApi from 'apis/sendApi';
 import Navbar from 'components/navbar/Navbar';
-import BoardList from './BoardList';
+import { useDispatch, useSelector } from 'react-redux';
+import { CREATE_BOARD_REQUEST } from '../../reducers/board';
 
 const CreateBoardForm = () => {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [startDateTime, setStartDateTime] = useState(new Date());
   const [endDateTime, setEndDateTime] = useState(new Date());
-  const [board, setBoard] = useState([]);
+  const { createBoardDone } = useSelector((state) => state.board);
+
+  useEffect(() => {
+    if (createBoardDone) {
+      setTitle('');
+      setContent('');
+      alert('게시글이 작성되었습니다.');
+    }
+  }, [createBoardDone]);
 
   const onChangeTitle = useCallback((e) => {
     setTitle(e.target.value);
@@ -24,16 +33,10 @@ const CreateBoardForm = () => {
     if (!title || !title.trim()) {
       return alert('제목을 작성해주세요');
     }
-    return await sendApi
-      .createBoard(title, content, startDateTime, endDateTime)
-      .then((response) => {
-        setBoard(response.data.data);
-        setTitle('');
-        setContent('');
-      })
-      .catch(() => {
-        alert('에러발생');
-      });
+    return dispatch({
+      type: CREATE_BOARD_REQUEST,
+      data: { title, content, startDateTime, endDateTime },
+    });
   };
 
   return (
@@ -74,7 +77,6 @@ const CreateBoardForm = () => {
           </Button>
         </div>
       </Form>
-      <BoardList board={board} />
     </Navbar>
   );
 };

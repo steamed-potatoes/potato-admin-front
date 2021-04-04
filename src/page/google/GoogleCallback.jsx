@@ -14,7 +14,6 @@ const GoogleCallback = () => {
         code,
         redirectUri: AUTH_KEY.google.redirectUri,
       });
-
       localStorageService.set('authToken', data.data);
       history.push('/members');
     } catch (error) {
