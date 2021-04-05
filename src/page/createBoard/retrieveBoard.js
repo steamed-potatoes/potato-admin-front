@@ -1,9 +1,10 @@
 import Navbar from 'components/navbar/Navbar';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { List, Form, Button } from 'antd';
+import { Form, Button } from 'antd';
 import DatePicker from 'react-datepicker';
 import { RETRIEVE_BOARD_REQUEST } from '../../reducers/board';
+import BoardCard from './boardCard';
 
 const RetrieveBoard = () => {
   const dispatch = useDispatch();
@@ -42,18 +43,24 @@ const RetrieveBoard = () => {
           </Button>
         </div>
       </Form>
-      <List
+      {/* <List
         itemLayout="vertical"
         size="large"
         pagination={{ pageSize: 5 }}
         dataSource={retrieveBoard}
         renderItem={(item) => (
           <List.Item key={item.id}>
-            <List.Item.Meta title={item.title} />
-            {item.email}
+            <List.Item.Meta
+              title={item.title}
+              description={item.content}
+              content={item.startDateTime}
+            />
           </List.Item>
         )}
-      />
+      /> */}
+      {retrieveBoard.map((item) => (
+        <BoardCard key={item.id} board={item} />
+      ))}
     </Navbar>
   );
 };

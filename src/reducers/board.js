@@ -44,7 +44,7 @@ const reducer = (state = initialState, action) => {
       case RETRIEVE_BOARD_SUCCESS:
         draft.retrieveBoardLoading = false;
         draft.retrieveBoardDone = true;
-        draft.retrieveBoard.concat(action.data);
+        draft.retrieveBoard = action.data;
         break;
       case RETRIEVE_BOARD_FAILURE:
         draft.retrieveBoardLoading = false;
