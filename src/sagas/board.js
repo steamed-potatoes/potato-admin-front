@@ -25,7 +25,7 @@ function* retrieveBoard(action) {
     const result = yield call(retrieveBoardApi, action.data);
     yield put({
       type: RETRIEVE_BOARD_SUCCESS,
-      data: result.data,
+      data: result.data.data.adminBoards,
     });
   } catch (err) {
     yield put({
