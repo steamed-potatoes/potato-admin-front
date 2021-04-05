@@ -51,6 +51,14 @@ const Navbar = ({ children }) => {
         >
           공지 추가
         </Menu.Item>
+        <Menu.Item
+          key="retrieveBoard"
+          onClick={() => {
+            onClickNav('/retrieveBoard');
+          }}
+        >
+          공지 목록
+        </Menu.Item>
       </Menu>
       {children}
     </Wrapper>
