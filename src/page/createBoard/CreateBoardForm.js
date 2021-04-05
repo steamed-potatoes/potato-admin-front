@@ -29,7 +29,7 @@ const CreateBoardForm = () => {
     setContent(e.target.value);
   });
 
-  const onSubmitForm = async () => {
+  const onSubmitForm = () => {
     if (!title || !title.trim()) {
       return alert('제목을 작성해주세요');
     }

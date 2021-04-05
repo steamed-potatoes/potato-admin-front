@@ -7,8 +7,35 @@ import {
   CREATE_BOARD_REQUEST,
   CREATE_BOARD_SUCCESS,
   CREATE_BOARD_FAILURE,
+  RETRIEVE_BOARD_REQUEST,
+  RETRIEVE_BOARD_SUCCESS,
+  RETRIEVE_BOARD_FAILURE,
 } from '../reducers/board';
 
+// 게시글 조회
+function retrieveBoardApi(data) {
+  const { startDate, endDate } = data;
+  return axios.get(
+    `${AUTH_KEY.apiUrl}/api/v1/schedule?startDate=${startDate}&endDate=${endDate}`
+  );
+}
+
+function* retrieveBoard(action) {
+  try {
+    const result = yield call(retrieveBoardApi, action.data);
+    yield put({
+      type: RETRIEVE_BOARD_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    yield put({
+      type: RETRIEVE_BOARD_FAILURE,
+      error: err.data,
+    });
+  }
+}
+
+// 게시글 생성
 function createBoardApi(data) {
   return axios.post(`${AUTH_KEY.adminUrl}/admin/v1/board`, data, {
     headers: {
@@ -33,12 +60,16 @@ function* createBoard(action) {
   }
 }
 
+function* watchRetrieveBoard() {
+  yield takeLatest(RETRIEVE_BOARD_REQUEST, retrieveBoard);
+}
+
 function* watchcreateBoard() {
   yield takeLatest(CREATE_BOARD_REQUEST, createBoard);
 }
 
 function* boardSaga() {
-  yield all([fork(watchcreateBoard)]);
+  yield all([fork(watchcreateBoard), fork(watchRetrieveBoard)]);
 }
 
 export default boardSaga;
