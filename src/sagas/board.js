@@ -10,7 +10,36 @@ import {
   RETRIEVE_BOARD_REQUEST,
   RETRIEVE_BOARD_SUCCESS,
   RETRIEVE_BOARD_FAILURE,
+  UPDATE_BOARD_REQUEST,
+  UPDATE_BOARD_SUCCESS,
+  UPDATE_BOARD_FAILURE,
 } from '../reducers/board';
+
+// 게시글 수정
+function updateBoardApi(data) {
+  return axios.put(`${AUTH_KEY.adminUrl}/admin/v1/board`, data, {
+    headers: {
+      Authorization: `Bearer ${localStorageService.get('authToken')}`,
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+function* updateBoard(action) {
+  try {
+    const result = yield call(updateBoardApi, action.data);
+    console.log(result);
+    yield put({
+      type: UPDATE_BOARD_SUCCESS,
+      data: result.data.data,
+    });
+  } catch (err) {
+    yield put({
+      type: UPDATE_BOARD_FAILURE,
+      error: err.data,
+    });
+  }
+}
 
 // 게시글 조회
 function retrieveBoardApi(data) {
@@ -60,6 +89,10 @@ function* createBoard(action) {
   }
 }
 
+function* watchUpdateBoard() {
+  yield takeLatest(UPDATE_BOARD_REQUEST, updateBoard);
+}
+
 function* watchRetrieveBoard() {
   yield takeLatest(RETRIEVE_BOARD_REQUEST, retrieveBoard);
 }
@@ -69,7 +102,11 @@ function* watchcreateBoard() {
 }
 
 function* boardSaga() {
-  yield all([fork(watchcreateBoard), fork(watchRetrieveBoard)]);
+  yield all([
+    fork(watchcreateBoard),
+    fork(watchRetrieveBoard),
+    fork(watchUpdateBoard),
+  ]);
 }
 
 export default boardSaga;

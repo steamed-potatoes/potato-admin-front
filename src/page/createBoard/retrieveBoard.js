@@ -43,21 +43,6 @@ const RetrieveBoard = () => {
           </Button>
         </div>
       </Form>
-      {/* <List
-        itemLayout="vertical"
-        size="large"
-        pagination={{ pageSize: 5 }}
-        dataSource={retrieveBoard}
-        renderItem={(item) => (
-          <List.Item key={item.id}>
-            <List.Item.Meta
-              title={item.title}
-              description={item.content}
-              content={item.startDateTime}
-            />
-          </List.Item>
-        )}
-      /> */}
       {retrieveBoard.map((item) => (
         <BoardCard key={item.id} board={item} />
       ))}
