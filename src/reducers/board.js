@@ -12,6 +12,9 @@ export const initialState = {
   updateBoardLoading: false,
   updateBoardDone: false,
   updateBoardError: null,
+  removeBoardLoading: false,
+  removeBoardDone: false,
+  removeBoardError: null,
 };
 
 export const CREATE_BOARD_REQUEST = 'CREATE_BOARD_REQUEST';
@@ -25,6 +28,10 @@ export const RETRIEVE_BOARD_FAILURE = 'RETRIEVE_BOARD_FAILURE';
 export const UPDATE_BOARD_REQUEST = 'UPDATE_BOARD_REQUEST';
 export const UPDATE_BOARD_SUCCESS = 'UPDATE_BOARD_SUCCESS';
 export const UPDATE_BOARD_FAILURE = 'UPDATE_BOARD_FAILURE';
+
+export const REMOVE_BOARD_REQUEST = 'REMOVE_BOARD_REQUEST';
+export const REMOVE_BOARD_SUCCESS = 'REMOVE_BOARD_SUCCESS';
+export const REMOVE_BOARD_FAILURE = 'REMOVE_BOARD_FAILURE';
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -77,6 +84,22 @@ const reducer = (state = initialState, action) => {
       case UPDATE_BOARD_FAILURE:
         draft.updateBoardLoading = false;
         draft.updateBoardError = action.error;
+        break;
+      case REMOVE_BOARD_REQUEST:
+        draft.removeBoardLoading = true;
+        draft.removeBoardDone = false;
+        draft.removeBoardError = null;
+        break;
+      case REMOVE_BOARD_SUCCESS:
+        draft.removeBoardLoading = false;
+        draft.removeBoardDone = true;
+        draft.retrieveBoard = draft.retrieveBoard.filter(
+          (v) => v.id !== action.data.id
+        );
+        break;
+      case REMOVE_BOARD_FAILURE:
+        draft.removeBoardLoading = false;
+        draft.removeBoardError = action.error;
         break;
       default:
         break;
