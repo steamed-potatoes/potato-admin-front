@@ -13,7 +13,35 @@ import {
   UPDATE_BOARD_REQUEST,
   UPDATE_BOARD_SUCCESS,
   UPDATE_BOARD_FAILURE,
+  REMOVE_BOARD_REQUEST,
+  REMOVE_BOARD_SUCCESS,
+  REMOVE_BOARD_FAILURE,
 } from '../reducers/board';
+
+// 게시글 삭제
+function removeBoardApi(data) {
+  return axios.delete(`${AUTH_KEY.adminUrl}/admin/v1/board/${data.id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorageService.get('authToken')}`,
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+function* removeBoard(action) {
+  try {
+    const result = yield call(removeBoardApi, action.data);
+    yield put({
+      type: REMOVE_BOARD_SUCCESS,
+      data: result.data.data,
+    });
+  } catch (err) {
+    yield put({
+      type: REMOVE_BOARD_FAILURE,
+      error: err.data,
+    });
+  }
+}
 
 // 게시글 수정
 function updateBoardApi(data) {
@@ -28,7 +56,6 @@ function updateBoardApi(data) {
 function* updateBoard(action) {
   try {
     const result = yield call(updateBoardApi, action.data);
-    console.log(result);
     yield put({
       type: UPDATE_BOARD_SUCCESS,
       data: result.data.data,
@@ -89,6 +116,10 @@ function* createBoard(action) {
   }
 }
 
+function* watchRemoveBoard() {
+  yield takeLatest(REMOVE_BOARD_REQUEST, removeBoard);
+}
+
 function* watchUpdateBoard() {
   yield takeLatest(UPDATE_BOARD_REQUEST, updateBoard);
 }
@@ -106,6 +137,7 @@ function* boardSaga() {
     fork(watchcreateBoard),
     fork(watchRetrieveBoard),
     fork(watchUpdateBoard),
+    fork(watchRemoveBoard),
   ]);
 }
 
