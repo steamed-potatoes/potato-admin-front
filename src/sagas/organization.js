@@ -7,7 +7,41 @@ import {
   RETRIEVE_ORGANIZATION_REQUEST,
   RETRIEVE_ORGANIZATION_SUCCESS,
   RETRIEVE_ORGANIZATION_FAILURE,
+  CHANGE_CATEGORY_REQUEST,
+  CHANGE_CATEGORY_SUCCESS,
+  CHANGE_CATEGORY_FAILURE,
 } from '../reducers/organization';
+
+// 카테고리 변경하기
+function changeCategoryApi(data) {
+  console.log(data);
+  return axios.patch(
+    `${AUTH_KEY.adminUrl}/admin/v1/organizaiton/category/approved/${data.subDomain}`,
+    data.category,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorageService.get('authToken')}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+}
+
+function* changeCategory(action) {
+  try {
+    const result = yield call(changeCategoryApi, action.data);
+    console.log(result);
+    yield put({
+      type: RETRIEVE_ORGANIZATION_SUCCESS,
+      data: result.data.data,
+    });
+  } catch (err) {
+    yield put({
+      type: RETRIEVE_ORGANIZATION_FAILURE,
+      error: err.data,
+    });
+  }
+}
 
 // 조직들 조회
 function retrieveOrganizationApi() {
@@ -22,17 +56,20 @@ function retrieveOrganizationApi() {
 function* retrieveOrganization() {
   try {
     const result = yield call(retrieveOrganizationApi);
-    console.log(result);
     yield put({
-      type: RETRIEVE_ORGANIZATION_SUCCESS,
+      type: CHANGE_CATEGORY_SUCCESS,
       data: result.data.data,
     });
   } catch (err) {
     yield put({
-      type: RETRIEVE_ORGANIZATION_FAILURE,
+      type: CHANGE_CATEGORY_FAILURE,
       error: err.data,
     });
   }
+}
+
+function* watchChangeCategory() {
+  yield takeLatest(CHANGE_CATEGORY_REQUEST, changeCategory);
 }
 
 function* watchRetrieveOrganization() {
@@ -40,7 +77,7 @@ function* watchRetrieveOrganization() {
 }
 
 function* organizationSaga() {
-  yield all([fork(watchRetrieveOrganization)]);
+  yield all([fork(watchRetrieveOrganization), fork(watchChangeCategory)]);
 }
 
 export default organizationSaga;
