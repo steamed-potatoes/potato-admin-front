@@ -12,7 +12,7 @@ const OrganizationList = () => {
   const dispatch = useDispatch();
   const { retrieveOrganization } = useSelector((state) => state.organization);
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch({
       type: RETRIEVE_ORGANIZATION_REQUEST,
     });
