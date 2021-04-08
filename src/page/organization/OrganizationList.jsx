@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { List, Avatar, Space, Select, Button } from 'antd';
+import { List, Avatar, Space } from 'antd';
 import Navbar from 'components/navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { RETRIEVE_ORGANIZATION_REQUEST } from 'reducers/organization';
 
-const { Option } = Select;
+// import OrganizationCategory from './organizationCategory';
 
 const IconText = ({ text }) => <Space>{text}</Space>;
 
@@ -44,11 +44,7 @@ const OrganizationList = () => {
               description={item.subDomain}
             />
             {item.description}
-            <Select defaultValue={item.category}>
-              <Option value="APPROVED_CIRCLE">인준그룹</Option>
-              <Option value="NON_APPROVED_CIRCLE">비인준그룹</Option>
-            </Select>
-            <Button type="primary">카테고리 변경하기</Button>
+            {/* <OrganizationCategory item={item} /> */}
           </List.Item>
         )}
       />
