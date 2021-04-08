@@ -14,7 +14,7 @@ import {
 
 // 카테고리 변경하기
 function changeCategoryApi(data) {
-  console.log(data);
+  console.log(data.subDomain, data.category);
   return axios.patch(
     `${AUTH_KEY.adminUrl}/admin/v1/organizaiton/category/approved/${data.subDomain}`,
     data.category,
@@ -32,12 +32,12 @@ function* changeCategory(action) {
     const result = yield call(changeCategoryApi, action.data);
     console.log(result);
     yield put({
-      type: RETRIEVE_ORGANIZATION_SUCCESS,
+      type: CHANGE_CATEGORY_SUCCESS,
       data: result.data.data,
     });
   } catch (err) {
     yield put({
-      type: RETRIEVE_ORGANIZATION_FAILURE,
+      type: CHANGE_CATEGORY_FAILURE,
       error: err.data,
     });
   }
@@ -57,12 +57,12 @@ function* retrieveOrganization() {
   try {
     const result = yield call(retrieveOrganizationApi);
     yield put({
-      type: CHANGE_CATEGORY_SUCCESS,
+      type: RETRIEVE_ORGANIZATION_SUCCESS,
       data: result.data.data,
     });
   } catch (err) {
     yield put({
-      type: CHANGE_CATEGORY_FAILURE,
+      type: RETRIEVE_ORGANIZATION_FAILURE,
       error: err.data,
     });
   }
