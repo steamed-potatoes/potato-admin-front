@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { List, Avatar, Space } from 'antd';
-import { useHistory } from 'react-router-dom';
-import sendApi from 'apis/sendApi';
+import React, { useEffect } from 'react';
+import { List, Avatar, Space, Select, Button } from 'antd';
 import Navbar from 'components/navbar/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { RETRIEVE_ORGANIZATION_REQUEST } from 'reducers/organization';
+
+const { Option } = Select;
 
 const IconText = ({ text }) => <Space>{text}</Space>;
 
 const OrganizationList = () => {
-  const history = useHistory();
-  const [organization, setOrganization] = useState([]);
+  const dispatch = useDispatch();
+  const { retrieveOrganization } = useSelector((state) => state.organization);
 
   useEffect(async () => {
-    try {
-      const { data } = await sendApi.getOrganizationList();
-      setOrganization(data.data);
-    } catch (error) {
-      alert(error.data);
-      history.push('/members');
-    }
+    dispatch({
+      type: RETRIEVE_ORGANIZATION_REQUEST,
+    });
   }, []);
 
   return (
@@ -28,7 +26,7 @@ const OrganizationList = () => {
         pagination={{
           pageSize: 4,
         }}
-        dataSource={organization}
+        dataSource={retrieveOrganization}
         renderItem={(item) => (
           <List.Item
             key={item.id}
@@ -46,6 +44,11 @@ const OrganizationList = () => {
               description={item.subDomain}
             />
             {item.description}
+            <Select defaultValue={item.category}>
+              <Option value="APPROVED_CIRCLE">인준그룹</Option>
+              <Option value="NON_APPROVED_CIRCLE">비인준그룹</Option>
+            </Select>
+            <Button type="primary">카테고리 변경하기</Button>
           </List.Item>
         )}
       />
