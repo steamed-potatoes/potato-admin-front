@@ -40,11 +40,15 @@ const reducer = (state = initialState, action) => {
         draft.changeCategoryDone = false;
         draft.changeCategoryError = null;
         break;
-      case CHANGE_CATEGORY_SUCCESS:
+      case CHANGE_CATEGORY_SUCCESS: {
         draft.changeCategoryLoading = false;
         draft.changeCategoryDone = true;
-        // draft.retrieveOrganization = action.data;
+        const findOrganization = draft.retrieveOrganization.find(
+          (v) => v.subDomain === action.data.subDomain
+        );
+        findOrganization.category = action.data.category;
         break;
+      }
       case CHANGE_CATEGORY_FAILURE:
         draft.changeCategoryLoading = false;
         draft.changeCategoryError = action.error;

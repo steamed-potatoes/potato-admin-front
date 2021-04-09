@@ -16,6 +16,7 @@ const LoginWrapper = styled.div`
   background-image: url(${backgroundImage});
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Title = styled.p`
