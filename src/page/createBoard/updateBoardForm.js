@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Form, Button, Input } from 'antd';
 import DatePicker from 'react-datepicker';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UPDATE_BOARD_REQUEST } from 'reducers/board';
 
 const UpdateBoardForm = ({ board }) => {
@@ -11,6 +11,8 @@ const UpdateBoardForm = ({ board }) => {
   const [startDateTime, setStartDateTime] = useState(new Date());
   const [endDateTime, setEndDateTime] = useState(new Date());
   const { id } = board;
+
+  const { updateBoardError } = useSelector((state) => state.board);
 
   const onChangeTitle = useCallback((e) => {
     setTitle(e.target.value);
@@ -29,6 +31,12 @@ const UpdateBoardForm = ({ board }) => {
       data: { adminBoardId: id, title, content, startDateTime, endDateTime },
     });
   };
+
+  useEffect(() => {
+    if (updateBoardError) {
+      alert(updateBoardError);
+    }
+  }, [updateBoardError]);
 
   return (
     <div>

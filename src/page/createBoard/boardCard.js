@@ -1,12 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Card, Button } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import UpdateBoardForm from './updateBoardForm';
 import { REMOVE_BOARD_REQUEST } from '../../reducers/board';
 
 const BoardCard = ({ board }) => {
   const dispatch = useDispatch();
   const [updateFormOpened, setUpdateFormOpened] = useState(false);
+  const { removeBoardError } = useSelector((state) => state.board);
 
   const onToggleUpdateForm = useCallback(() => {
     setUpdateFormOpened((prev) => !prev);
@@ -18,6 +19,12 @@ const BoardCard = ({ board }) => {
       data: { id: board.id },
     });
   }, []);
+
+  useEffect(() => {
+    if (removeBoardError) {
+      alert(removeBoardError);
+    }
+  }, [removeBoardError]);
 
   return (
     <div>

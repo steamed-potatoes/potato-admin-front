@@ -1,5 +1,5 @@
 import Navbar from 'components/navbar/Navbar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button } from 'antd';
 import DatePicker from 'react-datepicker';
@@ -8,7 +8,9 @@ import BoardCard from './boardCard';
 
 const RetrieveBoard = () => {
   const dispatch = useDispatch();
-  const { retrieveBoard } = useSelector((state) => state.board);
+  const { retrieveBoard, retrieveBoardError } = useSelector(
+    (state) => state.board
+  );
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
@@ -21,6 +23,12 @@ const RetrieveBoard = () => {
       },
     });
   };
+
+  useEffect(() => {
+    if (retrieveBoardError) {
+      alert(retrieveBoardError);
+    }
+  }, [retrieveBoardError]);
 
   return (
     <Navbar>

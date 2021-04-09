@@ -11,7 +11,9 @@ const CreateBoardForm = () => {
   const [content, setContent] = useState('');
   const [startDateTime, setStartDateTime] = useState(new Date());
   const [endDateTime, setEndDateTime] = useState(new Date());
-  const { createBoardDone } = useSelector((state) => state.board);
+  const { createBoardDone, createBoardError } = useSelector(
+    (state) => state.board
+  );
 
   useEffect(() => {
     if (createBoardDone) {
@@ -20,6 +22,12 @@ const CreateBoardForm = () => {
       alert('게시글이 작성되었습니다.');
     }
   }, [createBoardDone]);
+
+  useEffect(() => {
+    if (createBoardError) {
+      alert(createBoardError);
+    }
+  }, [createBoardError]);
 
   const onChangeTitle = useCallback((e) => {
     setTitle(e.target.value);
