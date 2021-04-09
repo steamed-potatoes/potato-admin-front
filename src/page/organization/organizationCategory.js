@@ -26,8 +26,8 @@ const OrganizationCategory = ({ item }) => {
         defaultValue="그룹변경유형을 선택해주세요"
         onChange={handleChange}
       >
-        <Option value="NON_APPROVED_CIRCLE">비인준에서 인준</Option>
-        <Option value="APPROVED_CIRCLE">인준그룹에서 비인준</Option>
+        <Option value="APPROVED_CIRCLE">비인준에서 인준</Option>
+        <Option value="NON_APPROVED_CIRCLE">인준그룹에서 비인준</Option>
       </Select>
       <Button type="primary" onClick={onClickButton(item.subDomain, category)}>
         카테고리 변경하기

@@ -14,8 +14,8 @@ import {
 
 // 카테고리 변경하기
 function changeCategoryApi(data) {
-  return axios.patch(
-    `${AUTH_KEY.adminUrl}/admin/v1/organization/category/approved/${data.subDomain}`,
+  return axios.put(
+    `${AUTH_KEY.adminUrl}/admin/v1/organization/${data.subDomain}/category`,
     {
       category: data.category,
     },
