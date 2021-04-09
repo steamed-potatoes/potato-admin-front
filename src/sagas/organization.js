@@ -14,10 +14,11 @@ import {
 
 // 카테고리 변경하기
 function changeCategoryApi(data) {
-  console.log(data.subDomain, data.category);
   return axios.patch(
-    `${AUTH_KEY.adminUrl}/admin/v1/organizaiton/category/approved/${data.subDomain}`,
-    data.category,
+    `${AUTH_KEY.adminUrl}/admin/v1/organization/category/approved/${data.subDomain}`,
+    {
+      category: data.category,
+    },
     {
       headers: {
         Authorization: `Bearer ${localStorageService.get('authToken')}`,
@@ -30,7 +31,6 @@ function changeCategoryApi(data) {
 function* changeCategory(action) {
   try {
     const result = yield call(changeCategoryApi, action.data);
-    console.log(result);
     yield put({
       type: CHANGE_CATEGORY_SUCCESS,
       data: result.data.data,
@@ -38,19 +38,14 @@ function* changeCategory(action) {
   } catch (err) {
     yield put({
       type: CHANGE_CATEGORY_FAILURE,
-      error: err.data,
+      error: err.message,
     });
   }
 }
 
 // 조직들 조회
 function retrieveOrganizationApi() {
-  return axios.get(`${AUTH_KEY.apiUrl}/api/v1/organization/list`, {
-    headers: {
-      Authorization: `Bearer ${localStorageService.get('authToken')}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  return axios.get(`${AUTH_KEY.apiUrl}/api/v1/organization/list`);
 }
 
 function* retrieveOrganization() {
