@@ -30,10 +30,10 @@ function removeBoardApi(data) {
 
 function* removeBoard(action) {
   try {
-    const result = yield call(removeBoardApi, action.data);
+    yield call(removeBoardApi, action.data);
     yield put({
       type: REMOVE_BOARD_SUCCESS,
-      data: result.data.data,
+      data: action.data,
     });
   } catch (err) {
     yield put({
